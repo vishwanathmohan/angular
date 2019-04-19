@@ -1,0 +1,35 @@
+create service.service.ts
+---------------------------
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  provideIn : 'root'
+})
+
+export class ServiceService {
+
+  constructor() { }
+  
+  getCourses() { 
+    return ['cource1','cource2','cource3','cource4','cource5']
+  }
+}
+---------------------------
+create service.component.ts
+---------------------------
+import { ServiceService } from './service.service';
+
+@component({
+  selector : 'app-service',
+  templateUrl : './service.component.html'
+  styleUrls : ['./service.component.css']
+})
+
+export class ServiceComponent implements OnInit {
+  courses;
+  
+  constructor(private service:ServiceService) {
+    this.courses = service.getCourses();
+  }
+}
