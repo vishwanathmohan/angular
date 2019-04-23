@@ -1,0 +1,104 @@
+component.html
+
+<!-- HTML -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Create Employee</h1>
+      <form class="well">
+        <div class="form-group">
+          <label for="name">Name :</label>
+          <input type="text" class="form-control" focus-me="name" name="name" [(ngModel)]="addEmployeeWrap.name">
+        </div>
+        <div class="form-group">
+          <label for="position">Designation :</label>
+          <input type="text" class="form-control" name="position" [(ngModel)]="addEmployeeWrap.position">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)='addEmployee()'>Add Employee</button>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <h1>Update Employee</h1>
+      <form class="well">
+        <div class="form-group">
+          <label for="name">Name :</label>
+          <input type="text" class="form-control" name="name" [(ngModel)]="editEmployeeWrap.name">
+        </div>
+        <div class="form-group">
+          <label for="position">Designation :</label>
+          <input type="text" class="form-control" name="position" [(ngModel)]="editEmployeeWrap.position">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="updateEmployee()">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
+<!--  -->
+
+<!-- DISPLAY LIST FOR EMPLOYEES -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12"><br><br>
+      <table class="table table-striped table-hover table-bordered">
+        <tr>
+          <th>Username</th>
+          <th>Position</th>
+          <th colspan="2">Action</th>
+        </tr>
+
+        <tr *ngFor="let employee of employees; let i=index;">
+          <td> {{ employee.name }}</td>
+          <td> {{ employee.position }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="editEmplooyee(i)">Edit</button>&nbsp;
+            <button class="btn btn-danger btn-sm" (click)="removeEmployee(i)">Delete</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- HTML -->
+
+component.ts
+
+employees = [
+    {name:'Krishna', position:'HR Executive'},
+    {name:'Mohan', position:'Sr Software Engineer'},
+    {name:'Krishna Mohan', position:'Sr Manager'},
+    {name:'Srinivas', position:'Java Developer'},
+    {name:'Amit', position:'Analyst'}
+  ]
+
+  addEmployeeWrap: any = {}
+  editEmployeeWrap: any = {}
+
+  addEmployee() {
+    this.employees.push(this.addEmployeeWrap);
+    this.addEmployeeWrap = {}
+  }
+  
+  removeEmployee(i) {
+    this.employees.splice(i, 1);
+  }
+
+  addEditEmployeeWrap;
+
+  editEmplooyee(k) {
+    this.editEmployeeWrap.name = this.employees[k].name;
+    this.editEmployeeWrap.position = this.employees[k].position;
+    this.addEditEmployeeWrap = k;
+  }
+
+  updateEmployee() {
+    let k = this.addEditEmployeeWrap;
+    for(let i=0; i < this.employees.length; i++) {
+      if(i==k) {
+        this.employees[i] = this.editEmployeeWrap;
+        this.editEmployeeWrap = {}
+      }
+    }
+  }  
