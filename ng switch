@@ -1,0 +1,63 @@
+component.html
+--------------------------------
+
+<h1>NG SWITCH CASE</h1>
+
+<select (change)="choice($event.target.value)">
+  <option>Select country</option>
+  <option *ngFor="let c of countries" [value]="c.code">{{ c.country }}</option>
+</select>
+
+<div [ngSwitch]="selectedCountry">
+  <div *ngSwitchCase="'ind'" class="jumbotron">
+    <h1>India calling number is +91</h1>
+  </div>
+
+  <div *ngSwitchCase="'uae'" class="jumbotron">
+    <h1>United Arub Emirates calling number is +35</h1>
+  </div>
+
+  <div *ngSwitchCase="'uk'" class="jumbotron">
+    <h1>United Kingdom calling number is +40</h1>
+  </div>
+
+  <div *ngSwitchCase="'us'" class="jumbotron">
+    <h1>United States calling number is +1</h1>
+  </div>
+
+  <div *ngSwitchDefault="" class="jumbotron">
+    <h1>Select country</h1>
+  </div>
+</div>
+--------------------------------
+component.ts
+--------------------------------
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-misc',
+  templateUrl: './misc.component.html',
+  styleUrls: ['./misc.component.css']
+})
+export class MiscComponent implements OnInit {
+
+  selectedCountry: string;
+
+  countries:any[] = [
+    { code: 'ind', country: 'India' },
+    { code: 'uae', country: 'United Arub Emirates' },
+    { code: 'uk', country: 'United Kingdom' },
+    { code: 'us', country: 'United States' },
+  ]
+
+  choice(code) {
+    this.selectedCountry = code;
+  }
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
