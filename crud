@@ -1,6 +1,5 @@
 component.html
-
-<!-- HTML -->
+--------------------------------
 
 <div class="container">
   <div class="row">
@@ -35,7 +34,7 @@ component.html
     </div>
   </div>
 </div>
-<!--  -->
+
 
 <!-- DISPLAY LIST FOR EMPLOYEES -->
 <div class="container">
@@ -61,9 +60,10 @@ component.html
   </div>
 </div>
 
-<!-- HTML -->
 
+--------------------------------
 component.ts
+--------------------------------
 
 employees = [
     {name:'Krishna', position:'HR Executive'},
