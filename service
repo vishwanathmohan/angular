@@ -1,0 +1,43 @@
+users.service.ts
+--------------------------------
+
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersService {
+
+  constructor(private http:HttpClient) { }
+
+  getAllUsers() {
+    return this.http.get('https://jsonplaceholder.typicode.com/users');
+  }
+
+}
+
+--------------------------------
+app.component.ts
+--------------------------------
+
+import { UsersService } from '../users/users.service';
+
+users: any;
+
+constructor(private userService: UsersService) { }
+
+  ngOnInit() {
+    this.userService.getAllUsers().subscribe((data) => {
+      this.users = data;
+    })
+  }
+  
+--------------------------------  
+app.component.html
+--------------------------------
+
+<ul *ngFor="let user of users">
+    <li>{{ user.name }}</li>
+</ul>
