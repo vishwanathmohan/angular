@@ -1,0 +1,102 @@
+reactiveforms.component.html
+--------------------------------------
+
+<div class="col-md-6 col-md-offset-3">
+  <form [formGroup]='signupForm' (ngSubmit)="PostData(signupForm)">
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="fname" placeholder="Your First name">
+
+      <div *ngIf="signupForm.controls['fname'].touched && !signupForm.controls['fname'].valid">
+        <span *ngIf="signupForm.controls['fname'].hasError('required')">
+          <p class="alert alert-danger">First Name is required...</p>
+        </span>
+        <span *ngIf="signupForm.controls['fname'].hasError('minlength')">
+          <p class="alert alert-danger">Min Length is 2</p>
+        </span>
+        <span *ngIf="signupForm.controls['fname'].hasError('maxlength')">
+          <p class="alert alert-danger">Max lenght is 5</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="lname" placeholder="Your Last name">
+
+      <div *ngIf="signupForm.controls['lname'].touched && !signupForm.controls['lname'].valid">
+        <span *ngIf="signupForm.controls['lname'].hasError('required')">
+          <p class="alert alert-danger">Last name is required</p>
+        </span>
+        <span *ngIf="signupForm.controls['lname'].hasError('minlength')">
+          <p class="alert alert-danger">Min lenght is 2</p>
+        </span>
+        <span *ngIf="signupForm.controls['lname'].hasError('maxlength')">
+          <p class="alert alert-danger">max lenght is 10</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="Emailid" placeholder="Email Id">
+      <div *ngIf="signupForm.controls['Emailid'].touched && !signupForm.controls['Emailid'].valid">
+        <span *ngIf="signupForm.controls['Emailid'].hasError('required')">
+          <p class="alert alert-danger">Email Id is required</p>
+        </span>
+        <span *ngIf="signupForm.controls['Emailid'].hasError('email')">
+          <p class="alert alert-danger">Invalid Email ID</p>
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input type="password" class="form-control" formControlName="userpassword" placeholder="User password">
+    </div>
+
+    <div>
+      <input type="submit" class="btn btn-primary" value="Post Data" [disabled]="!signupForm.valid">
+      <!-- <button type="submit" (click)="PostData()" class="btn btn-primary" [disabled]="!signupForm.valid">Submit</button> -->
+    </div>
+
+
+  </form>
+</div>
+
+---------------------------------------
+reactiveforms.component.ts
+---------------------------------------
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+
+@Component({
+  selector: 'app-reactive-forms',
+  templateUrl: './reactive-forms.component.html',
+  styleUrls: ['./reactive-forms.component.css']
+})
+export class ReactiveFormsComponent implements OnInit {
+
+  signupForm: FormGroup;
+  FirstName: string="";
+  LastName: string="";
+  Email: string="";
+  Password: string="";
+
+  constructor(private frmbuilder:FormBuilder) {
+    this.signupForm=frmbuilder.group({
+      // fname: new FormControl(),
+      // lname: new FormControl(),
+      // Emailid: new FormControl(),
+      // userpassword: new FormControl()
+      fname:['', Validators.compose([Validators.required, Validators.maxLength(5), Validators.minLength(2)])],
+      lname:['', [Validators.required, Validators.maxLength(10)]],
+      Emailid:['', [Validators.required, Validators.email]],
+      userpassword:['', Validators.required]
+    });
+   }
+
+  ngOnInit() {
+  }
+
+  PostData(signupForm:NgForm) {
+    console.log(signupForm.controls);
+  }
+
+}
