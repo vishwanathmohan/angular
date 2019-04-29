@@ -1,0 +1,52 @@
+home.component.html
+-----------------------------
+
+<ul class="nav navbar-nav">
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/']">Home</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/crud']">Crud</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/misc']">Misc</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/table']">Table</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/service']">Service</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/reactive-forms']">Reactive Forms</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/users']">Users</a>
+      </li>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a [routerLink]="['/crud-api']">Crud API</a>
+      </li>
+    </ul>
+    
+-----------------------------
+app.module.ts
+-----------------------------
+imports: RouterModule.forRoot([
+      { path: '',       component: HomeComponent },
+      { path: 'crud',   component: CrudComponent },
+      { path: 'misc',   component : MiscComponent },
+      { path: 'table',   component : TableComponent },
+      { path: 'service',   component : ServiceComponent },
+      { path: 'forms',   component : FormsComponent },
+      { path: 'users',   component : UsersComponent },
+      { path: 'crud-api',   component : CrudApiComponent },
+      { path: 'reactive-forms', component: ReactiveFormsComponent },
+      { path: 'admin',   component : AdminComponent, canActivate : [AuthGuard] },
+      { path: '**',     component: NotfoundComponent }
+    ])
+-----------------------------
+app.module.ts
+-----------------------------  
+add this in app.module
+
+<router-outlet>
